@@ -78,7 +78,7 @@ s2s_certfile: "/opt/ejabberd/ssl/host.pem"
 ###   AUTHENTICATION
 
 auth_method:
-  - internal
+  - odbc
 {%- if env['AUTH_METHOD'] == "anonymous" %}
   - anonymous
 
@@ -86,6 +86,14 @@ Anonymous login support:
   anonymous_protocol: login_anon
   allow_multiple_connections: true
 {% endif %}
+
+
+odbc_type: mysql
+odbc_server: "mysql"
+odbc_database: "ejabberd"
+odbc_username: "ejabberd"
+odbc_password: "ejabberd"
+odbc_pool_size: 10
 
 ###   ===============
 ###   TRAFFIC SHAPERS
@@ -180,6 +188,7 @@ modules:
     access_admin: muc_admin
   ## mod_muc_log: {}
   mod_offline:
+    db_type: odbc
     access_max_user_messages: max_user_offline_messages
   mod_ping: {}
   ## mod_pres_counter:
